@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SiteLayout from './SiteLayout.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+const { title, description, pubDate, updatedDate, tags } = Astro.props;
+const dateFormat = (date: Date) => date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Shanghai' });
+---
+<SiteLayout title={title} description={description}>
+	<main class="reading-container">
+		<header class="article-header"><a class="eyebrow" href="/blog/">返回文章列表</a><h1>{title}</h1><p>{description}</p><div class="article-meta"><time datetime={pubDate.toISOString()}>{dateFormat(pubDate)}</time>{updatedDate && <span>更新于 {dateFormat(updatedDate)}</span>}</div><div class="tag-list" style="margin-top:1.2rem">{tags.map((tag) => <a class="tag" href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}</div></header>
+		<article class="article-body"><slot /></article>
+		<div class="article-end"><a href="/blog/">← 返回全部文章</a></div>
+	</main>
+</SiteLayout>

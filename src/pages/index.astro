@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import PostCard from '../components/PostCard.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { AUTHOR } from '../consts';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].slice(0, 6);
+---
+
+<SiteLayout>
+	<main>
+		<section class="hero container">
+			<div>
+				<span class="eyebrow">A small corner on the internet</span>
+				<h1>把日子写下来，<br /><em>慢慢想明白。</em></h1>
+				<p class="hero-description">你好，我是 {AUTHOR}。这里收集我正在思考的事、读过的书，以及生活中值得记住的片刻。</p>
+				<div class="hero-actions"><a class="button" href="/blog/">读读文章 <span aria-hidden="true">↗</span></a><a class="button secondary" href="/about/">认识我</a></div>
+			</div>
+			<div class="hero-art" role="img" aria-label="抽象的山峦与暮色"><span class="art-label">NOTES · THOUGHTS · LIFE</span><span class="art-caption">留一点空白，给新的故事。</span></div>
+		</section>
+		<section class="home-section container">
+			<div class="section-heading"><div><span class="eyebrow">Latest writing</span><h2>最近的文章</h2></div><a href="/blog/">全部文章 →</a></div>
+			<div class="post-grid">{posts.slice(0, 3).map((post) => <PostCard post={post} />)}</div>
+		</section>
+		<section class="home-section container home-bottom">
+			<div class="info-panel"><span class="eyebrow">Explore</span><h3>按话题走走</h3><p>从感兴趣的入口开始，顺着文字继续探索。</p><div class="tag-list">{tags.map((tag) => <a class="tag" href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}</div></div>
+			<div class="info-panel"><span class="eyebrow">A little more</span><h3>关于这个博客</h3><p>这是一个持续生长的写作空间。文章、关于和友链都已备好，新的内容可以慢慢放进来。</p><a href="/about/">了解更多 →</a></div>
+		</section>
+	</main>
+</SiteLayout>

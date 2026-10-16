@@ -1,0 +1,7 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { AUTHOR, GITHUB_URL } from '../consts';
+---
+<SiteLayout title="关于" description={`关于 ${AUTHOR} 和这个博客。`}>
+	<main class="reading-container text-page"><span class="eyebrow">About</span><h1>你好，我是 {AUTHOR}。</h1><p>欢迎来到胖胖博客。这是我整理想法、记录阅读和生活的地方。</p><p>这个页面目前是一个起点。你可以把自己的经历、关注的话题，以及想通过博客分享的内容写在这里。它不需要一次写完，可以随着时间慢慢修改。</p><p>想看看最近写了什么？去<a href="/blog/">文章列表</a>逛逛。也可以在 <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a> 找到我。</p><p class="note">编辑位置：src/pages/about.astro</p></main>
+</SiteLayout>

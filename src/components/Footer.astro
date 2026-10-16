@@ -1,0 +1,10 @@
+---
+import { AUTHOR, GITHUB_URL } from '../consts';
+---
+
+<footer class="site-footer">
+	<div class="footer-inner">
+		<p>© {new Date().getFullYear()} {AUTHOR} <span aria-hidden="true">·</span> 写作与记录，慢慢来。</p>
+		<div><a href="/rss.xml">RSS</a><a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+	</div>
+</footer>
