@@ -3,17 +3,20 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { localeFromPath, type Locale } from '../i18n';
 
-interface Props { title?: string; description?: string; }
-const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+interface Props { title?: string; description?: string; lang?: Locale; }
+const lang = Astro.props.lang ?? localeFromPath(Astro.url.pathname);
+const title = Astro.props.title ?? (lang === 'en' ? 'Pangpang Blog' : SITE_TITLE);
+const description = Astro.props.description ?? (lang === 'en' ? "Lehan Zhang's personal blog about ideas, reading, and everyday life." : SITE_DESCRIPTION);
 ---
 
 <!doctype html>
-<html lang="zh-CN">
-	<head><BaseHead title={title} description={description} /></head>
+<html lang={lang === 'en' ? 'en' : 'zh-CN'}>
+	<head><BaseHead title={title} description={description} lang={lang} /></head>
 	<body>
-		<Header />
+		<Header lang={lang} />
 		<slot />
-		<Footer />
+		<Footer lang={lang} />
 	</body>
 </html>

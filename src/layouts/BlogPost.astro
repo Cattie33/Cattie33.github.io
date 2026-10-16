@@ -1,15 +1,24 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import SiteLayout from './SiteLayout.astro';
+import { localePath, type Locale } from '../i18n';
 
-type Props = CollectionEntry<'blog'>['data'];
-const { title, description, pubDate, updatedDate, tags } = Astro.props;
-const dateFormat = (date: Date) => date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Shanghai' });
+type Props = CollectionEntry<'blog'>['data'] & { lang?: Locale; untranslated?: boolean };
+const { title, description, pubDate, updatedDate, tags, lang = 'zh', untranslated = false } = Astro.props;
+const english = lang === 'en';
+const archivePath = localePath('/blog/', lang);
+const dateFormat = (date: Date) => date.toLocaleDateString(english ? 'en-US' : 'zh-CN', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Shanghai' });
 ---
-<SiteLayout title={title} description={description}>
+<SiteLayout title={title} description={description} lang={lang}>
 	<main class="reading-container">
-		<header class="article-header"><a class="eyebrow" href="/blog/">返回文章列表</a><h1>{title}</h1><p>{description}</p><div class="article-meta"><time datetime={pubDate.toISOString()}>{dateFormat(pubDate)}</time>{updatedDate && <span>更新于 {dateFormat(updatedDate)}</span>}</div><div class="tag-list" style="margin-top:1.2rem">{tags.map((tag) => <a class="tag" href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}</div></header>
-		<article class="article-body"><slot /></article>
-		<div class="article-end"><a href="/blog/">← 返回全部文章</a></div>
+		<header class="article-header"><a class="eyebrow" href={archivePath}>{english ? 'Back to posts' : '返回文章列表'}</a><h1>{title}</h1><p>{description}</p><div class="article-meta"><time datetime={pubDate.toISOString()}>{dateFormat(pubDate)}</time>{updatedDate && <span>{english ? 'Updated ' : '更新于 '}{dateFormat(updatedDate)}</span>}</div><div class="tag-list" style="margin-top:1.2rem">{tags.map((tag) => <a class="tag" href={`${archivePath}?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}</div></header>
+		{untranslated && <p class="untranslated-note">This post is currently available in Chinese only. Its English translation can be added in <code>src/content/blog-en/</code>.</p>}
+		<article class="article-body" lang={untranslated ? 'zh-CN' : english ? 'en' : 'zh-CN'}><slot /></article>
+		<div class="article-end"><a href={archivePath}>{english ? '← Back to all posts' : '← 返回全部文章'}</a></div>
 	</main>
 </SiteLayout>
+
+<style>
+	.untranslated-note{margin:2rem 0 0;padding:1rem 1.2rem;border-left:3px solid var(--accent);background:var(--accent-soft);color:var(--ink);font-size:.9rem}
+	.untranslated-note code{font-size:.9em}
+</style>

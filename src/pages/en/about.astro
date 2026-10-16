@@ -1,0 +1,14 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { AUTHOR, GITHUB_URL } from '../../consts';
+---
+<SiteLayout lang="en" title="About" description={`About ${AUTHOR} and Pangpang Blog.`}>
+	<main class="reading-container text-page">
+		<span class="eyebrow">About</span>
+		<h1>Hello, I'm {AUTHOR}.</h1>
+		<p>Welcome to Pangpang Blog. This is where I gather my thoughts and write about reading and everyday life.</p>
+		<p>This page is a starting point. Over time, I can add more about my experiences, the topics I care about, and what I hope to share here.</p>
+		<p>Want to see what I have written recently? Visit the <a href="/en/blog/">post archive</a>, or find me on <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+		<p class="note">Edit this page in src/pages/en/about.astro.</p>
+	</main>
+</SiteLayout>

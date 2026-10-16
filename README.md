@@ -1,6 +1,6 @@
 # 胖胖博客
 
-用 Astro 构建的个人博客。参考 [Homeward Sky](https://homeward-sky.top/) 的栏目组织方式，包含首页、文章列表、标签筛选、关键词搜索、文章页、关于、友链、RSS、深浅色模式和站点地图。页面与文字为独立实现。
+用 Astro 构建的个人博客。参考 [Homeward Sky](https://homeward-sky.top/) 的栏目组织方式，包含首页、文章列表、标签筛选、关键词搜索、文章页、关于、友链、RSS、站点地图，以及可在所有页面使用的中英文切换和深浅色阅读模式。页面与文字为独立实现。
 
 ## 本地运行
 
@@ -20,6 +20,9 @@ npm run dev
 - `src/pages/about.astro`：个人介绍。
 - `src/pages/friends.astro`：友链。
 - `src/content/blog/`：Markdown/MDX 文章。目前公开的三篇均标记为“示例文章”，可以逐篇替换或删除。
+- `src/content/blog-en/`：文章的英文版。与中文文章使用相同文件名；暂时没有译文时，英文文章页会显示中文原文和提示。
+- `src/pages/en/`：关于、友链等页面的英文版。
+- `public/images/bear-logo.png`：页眉和浏览器标签页使用的小熊照片 logo。
 
 新文章示例：
 
@@ -35,6 +38,8 @@ tags: ['随笔']
 ```
 
 加上 `draft: true` 可让文章不出现在静态页面和 RSS 中。
+
+如需给新文章添加英文版，在 `src/content/blog-en/` 新建同名 Markdown 文件，翻译标题、摘要、标签和正文。页眉语言按钮会在对应的中英文页面之间切换；阅读模式会保存在浏览器中。
 
 ## 部署到 GitHub Pages
 
