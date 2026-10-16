@@ -12,7 +12,7 @@ const archivePath = localePath('/blog/', lang);
 const formatDate = (date: Date) => date.toLocaleDateString(english ? 'en-US' : 'zh-CN', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Shanghai' });
 ---
 
-<SiteLayout lang={lang} title={english ? 'All posts' : '全部文章'} description={english ? 'Browse all posts on Pangpang Blog by keyword or topic.' : '浏览胖胖博客的全部文章，按关键词和标签查找。'}>
+<SiteLayout lang={lang} title={english ? 'All posts' : '全部文章'} description={english ? 'Browse the writing in Mi’s journal by keyword or topic.' : '浏览咪的事件簿的全部文章，按关键词和标签查找。'}>
 	<main class="container archive-page" data-locale={lang}>
 		<div class="page-heading">
 			<span class="eyebrow">Archive</span>

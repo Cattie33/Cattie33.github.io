@@ -5,7 +5,7 @@ import { alternateUrl, type Locale } from '../i18n';
 
 interface Props { title: string; description: string; lang: Locale; }
 const { title, description, lang } = Astro.props;
-const siteTitle = lang === 'en' ? 'Pangpang Blog' : SITE_TITLE;
+const siteTitle = SITE_TITLE;
 const pageTitle = title === siteTitle ? title : `${title} · ${siteTitle}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const chineseURL = new URL(alternateUrl(Astro.url, 'zh'), Astro.site);

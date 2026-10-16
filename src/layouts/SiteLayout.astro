@@ -7,8 +7,8 @@ import { localeFromPath, type Locale } from '../i18n';
 
 interface Props { title?: string; description?: string; lang?: Locale; }
 const lang = Astro.props.lang ?? localeFromPath(Astro.url.pathname);
-const title = Astro.props.title ?? (lang === 'en' ? 'Pangpang Blog' : SITE_TITLE);
-const description = Astro.props.description ?? (lang === 'en' ? "Lehan Zhang's personal blog about ideas, reading, and everyday life." : SITE_DESCRIPTION);
+const title = Astro.props.title ?? SITE_TITLE;
+const description = Astro.props.description ?? (lang === 'en' ? "Mi's stories and writing." : SITE_DESCRIPTION);
 ---
 
 <!doctype html>

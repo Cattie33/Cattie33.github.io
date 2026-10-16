@@ -1,6 +1,5 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import { AUTHOR } from '../consts';
 import { localePath, type Locale } from '../i18n';
 import { getLocalizedPosts } from '../posts';
 
@@ -13,7 +12,7 @@ const posts = (await getLocalizedPosts(lang)).slice(0, 3);
 	<main>
 		<section class="home-intro">
 			<h1>{lang === 'en' ? 'Hello, come on in.' : '你好，欢迎来坐坐。'}</h1>
-			<p>{lang === 'en' ? `I'm ${AUTHOR}. This is a place for words and little moments worth remembering.` : `我是 ${AUTHOR}。这里放一些文字，也收藏生活里值得记住的小事。`}</p>
+			<p>{lang === 'en' ? 'This is Mi: stories and words about me.' : '这里是咪，关于me的故事和文字。'}</p>
 			<a class="intro-link" href={localePath('/blog/', lang)}>{lang === 'en' ? 'Read the blog' : '读读文章'} <span aria-hidden="true">↗</span></a>
 		</section>
 

@@ -1,4 +1,4 @@
-# 胖胖博客
+# 咪的事件簿
 
 用 Astro 构建的个人博客。参考 [Homeward Sky](https://homeward-sky.top/) 的栏目组织方式，包含首页、文章列表、标签筛选、关键词搜索、文章页、关于、友链、RSS、站点地图，以及可在所有页面使用的中英文切换和深浅色阅读模式。页面与文字为独立实现。
 
@@ -16,13 +16,14 @@ npm run dev
 ## 修改内容
 
 - `src/consts.ts`：站点名称、简介、署名与 GitHub 链接。
-- `src/pages/index.astro`：首页介绍。
+- `src/components/Home.astro`：首页介绍与最近文章。
 - `src/pages/about.astro`：个人介绍。
 - `src/pages/friends.astro`：友链。
 - `src/content/blog/`：Markdown/MDX 文章。目前公开的三篇均标记为“示例文章”，可以逐篇替换或删除。
 - `src/content/blog-en/`：文章的英文版。与中文文章使用相同文件名；暂时没有译文时，英文文章页会显示中文原文和提示。
 - `src/pages/en/`：关于、友链等页面的英文版。
 - `public/images/bear-logo.png`：页眉和浏览器标签页使用的小熊照片 logo。
+- `design/bear-video/`：小熊拍摄风景的 6 秒静音循环视频草稿、海报图和可重制的素材；确认画面后可放进页脚。
 
 新文章示例：
 
