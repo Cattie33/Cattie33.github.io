@@ -6,8 +6,26 @@ const { lang } = Astro.props;
 ---
 
 <footer class="site-footer">
+	<div class="footer-scene" aria-hidden="true">
+		<img src="/images/mi-autumn-bear-poster.jpg" alt="" width="1440" height="480" loading="lazy" />
+		<video autoplay muted loop playsinline preload="metadata" poster="/images/mi-autumn-bear-poster.jpg">
+			<source src="/videos/mi-autumn-bear-loop.mp4" type="video/mp4" />
+		</video>
+	</div>
 	<div class="footer-inner">
 		<p>© {new Date().getFullYear()} {AUTHOR} <span aria-hidden="true">·</span> {lang === 'en' ? 'Writing and remembering, one day at a time.' : '写作与记录，慢慢来。'}</p>
 		<div><a href={localePath('/rss.xml', lang)}>RSS</a><a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
 	</div>
 </footer>
+
+<script>
+	const footerVideo = document.querySelector<HTMLVideoElement>('.footer-scene video');
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+	function syncMotionPreference() {
+		if (!footerVideo) return;
+		if (reducedMotion.matches) footerVideo.pause();
+		else footerVideo.play().catch(() => { /* The poster remains visible. */ });
+	}
+	syncMotionPreference();
+	reducedMotion.addEventListener('change', syncMotionPreference);
+</script>
