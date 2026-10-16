@@ -10,10 +10,18 @@ const posts = (await getLocalizedPosts(lang)).slice(0, 3);
 
 <SiteLayout lang={lang}>
 	<main>
-		<section class="home-intro">
-			<h1>{lang === 'en' ? 'Hello, come on in.' : '你好，欢迎来坐坐。'}</h1>
-			<p>{lang === 'en' ? 'This is Mi: stories and words about me.' : '这里是咪，关于me的故事和文字。'}</p>
-			<a class="intro-link" href={localePath('/blog/', lang)}>{lang === 'en' ? 'Read the blog' : '读读文章'} <span aria-hidden="true">↗</span></a>
+		<section class="home-hero">
+			<div class="home-scene" aria-hidden="true">
+				<img src="/images/mi-autumn-bear-background.jpg" alt="" width="1024" height="772" fetchpriority="high" />
+				<video autoplay muted loop playsinline preload="auto" poster="/images/mi-autumn-bear-background.jpg">
+					<source src="/videos/mi-autumn-bear-background.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="home-intro">
+				<h1>{lang === 'en' ? 'Hello, come on in.' : '你好，欢迎来坐坐。'}</h1>
+				<p>{lang === 'en' ? 'This is Mi: stories and words about me.' : '这里是咪，关于me的故事和文字。'}</p>
+				<a class="intro-link" href={localePath('/blog/', lang)}>{lang === 'en' ? 'Read the blog' : '读读文章'} <span aria-hidden="true">↗</span></a>
+			</div>
 		</section>
 
 		<section class="home-latest" aria-labelledby="latest-heading">
@@ -33,11 +41,64 @@ const posts = (await getLocalizedPosts(lang)).slice(0, 3);
 	</main>
 </SiteLayout>
 
+<script>
+	const sceneVideo = document.querySelector<HTMLVideoElement>('.home-scene video');
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+	function syncMotionPreference() {
+		if (!sceneVideo) return;
+		if (reducedMotion.matches) sceneVideo.pause();
+		else sceneVideo.play().catch(() => { /* The poster remains visible. */ });
+	}
+	syncMotionPreference();
+	reducedMotion.addEventListener('change', syncMotionPreference);
+</script>
+
 <style>
+	.home-hero {
+		position: relative;
+		isolation: isolate;
+		height: calc(100svh - 84px);
+		min-height: 500px;
+		overflow: hidden;
+		background: #f7f0df;
+	}
+
+	.home-hero::after {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		inset: 0;
+		background: linear-gradient(to bottom, rgba(247, 244, 238, .56), rgba(247, 244, 238, 0) 52%);
+		pointer-events: none;
+	}
+
+	.home-scene {
+		position: absolute;
+		z-index: -2;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.home-scene img,
+	.home-scene video {
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 74%;
+	}
+
+	:global(:root[data-theme='dark']) .home-hero { background: #182231; }
+	:global(:root[data-theme='dark']) .home-scene { filter: brightness(.48) saturate(.84); }
+	:global(:root[data-theme='dark']) .home-hero::after { background: linear-gradient(to bottom, rgba(24, 34, 49, .78), rgba(24, 34, 49, 0) 60%); }
+
 	.home-intro {
+		position: relative;
+		z-index: 1;
 		width: min(760px, calc(100% - 48px));
 		margin: 0 auto;
-		padding: clamp(4.5rem, 7vw, 6.25rem) 0 3.5rem;
+		padding: clamp(4rem, 9vh, 6rem) 0 0;
 		text-align: center;
 	}
 
@@ -73,7 +134,7 @@ const posts = (await getLocalizedPosts(lang)).slice(0, 3);
 
 	.home-latest {
 		width: min(760px, calc(100% - 48px));
-		margin: 0 auto;
+		margin: 4rem auto 0;
 	}
 
 	.latest-heading {
@@ -127,9 +188,19 @@ const posts = (await getLocalizedPosts(lang)).slice(0, 3);
 
 	@media (max-width: 560px) {
 		.home-intro, .home-latest { width: calc(100% - 32px); }
-		.home-intro { padding: 4.6rem 0 2.7rem; }
-		.home-intro h1 { font-size: 2.7rem; }
+		.home-hero { height: calc(100svh - 98px); min-height: 540px; }
+		.home-scene img, .home-scene video { object-position: 90% center; }
+		.home-intro { padding-top: 4.3rem; }
+		.home-intro h1 { font-size: clamp(1.85rem, 8vw, 2.25rem); }
 		.home-intro p { font-size: .96rem; }
 		.home-latest li { align-items: start; flex-direction: column; gap: .2rem; }
+	}
+
+	@media (min-width: 561px) and (max-width: 900px) {
+		.home-scene img, .home-scene video { object-position: 75% 74%; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.home-scene video { display: none; }
 	}
 </style>
