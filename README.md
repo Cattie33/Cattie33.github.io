@@ -19,7 +19,7 @@ npm run dev
 - `src/pages/index.astro`：首页介绍。
 - `src/pages/about.astro`：个人介绍。
 - `src/pages/friends.astro`：友链。
-- `src/content/blog/`：Markdown/MDX 文章。目前的三篇均标记为“示例文章”，发布前请替换或删除。
+- `src/content/blog/`：Markdown/MDX 文章。目前公开的三篇均标记为“示例文章”，可以逐篇替换或删除。
 
 新文章示例：
 
@@ -38,17 +38,16 @@ tags: ['随笔']
 
 ## 部署到 GitHub Pages
 
-1. 在 GitHub 创建公开仓库 `Cattie33.github.io`，不要让 GitHub 自动添加 README 或其他初始文件。
-2. 在仓库 **Settings → Pages** 中把 **Build and deployment → Source** 设为 **GitHub Actions**。
-3. 本地运行以下命令，将代码推送到 `main`：
+博客已部署到 [https://cattie33.github.io/](https://cattie33.github.io/)，代码仓库是 [Cattie33/Cattie33.github.io](https://github.com/Cattie33/Cattie33.github.io)。GitHub Pages 的发布来源已设为 GitHub Actions。
+
+以后修改文章或页面后，在本地运行：
 
 ```bash
 git add .
-git commit -m "Build Astro personal blog"
-git remote add origin https://github.com/Cattie33/Cattie33.github.io.git
-git push -u origin main
+git commit -m "Update blog"
+git push
 ```
 
-`.github/workflows/deploy.yml` 会在每次推送 `main` 后构建并部署站点。网址是 `https://cattie33.github.io/`。请保留 `package-lock.json`，GitHub Action 会根据它安装依赖。
+`.github/workflows/deploy.yml` 会在每次推送 `main` 后构建并部署站点。请保留 `package-lock.json`，GitHub Action 会根据它安装依赖。
 
 如果最终仓库名称不是 `Cattie33.github.io`，需在 `astro.config.mjs` 中根据 [Astro 的 GitHub Pages 指南](https://docs.astro.build/en/guides/deploy/github/)调整 `site` 和 `base`，并更新站内链接。
