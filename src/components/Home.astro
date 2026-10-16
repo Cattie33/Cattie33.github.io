@@ -16,10 +16,6 @@ const posts = (await getLocalizedPosts(lang)).slice(0, 3);
 			<a class="intro-link" href={localePath('/blog/', lang)}>{lang === 'en' ? 'Read the blog' : '读读文章'} <span aria-hidden="true">↗</span></a>
 		</section>
 
-		<figure class="home-photo">
-			<img src="/images/flower-bear.jpeg" alt={lang === 'en' ? 'A small bear in a straw hat sitting among blue and purple flowers' : '戴着草帽的小熊坐在蓝紫色花丛中'} width="4034" height="3024" fetchpriority="high" />
-		</figure>
-
 		<section class="home-latest" aria-labelledby="latest-heading">
 			<div class="latest-heading">
 				<h2 id="latest-heading">{lang === 'en' ? 'Recent writing' : '最近写的'}</h2>
@@ -75,23 +71,9 @@ const posts = (await getLocalizedPosts(lang)).slice(0, 3);
 	.latest-heading a:hover,
 	.home-latest li a:hover { text-decoration: underline; }
 
-	.home-photo {
-		width: min(900px, calc(100% - 48px));
-		margin: 0 auto;
-	}
-
-	.home-photo img {
-		display: block;
-		width: 100%;
-		aspect-ratio: 2 / 1;
-		object-fit: cover;
-		object-position: center 48%;
-		border-radius: 12px;
-	}
-
 	.home-latest {
 		width: min(760px, calc(100% - 48px));
-		margin: 5.5rem auto 0;
+		margin: 0 auto;
 	}
 
 	.latest-heading {
@@ -144,12 +126,10 @@ const posts = (await getLocalizedPosts(lang)).slice(0, 3);
 	}
 
 	@media (max-width: 560px) {
-		.home-intro, .home-photo, .home-latest { width: calc(100% - 32px); }
+		.home-intro, .home-latest { width: calc(100% - 32px); }
 		.home-intro { padding: 4.6rem 0 2.7rem; }
 		.home-intro h1 { font-size: 2.7rem; }
 		.home-intro p { font-size: .96rem; }
-		.home-photo img { aspect-ratio: 4 / 3; }
-		.home-latest { margin-top: 4rem; }
 		.home-latest li { align-items: start; flex-direction: column; gap: .2rem; }
 	}
 </style>
