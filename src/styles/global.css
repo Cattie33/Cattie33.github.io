@@ -24,3 +24,15 @@
 .theme-toggle{display:grid;place-items:center;flex:none;margin:0}
 .site-header a:focus-visible,.site-header button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 @media(max-width:560px){.header-inner{gap:.7rem}.header-controls{margin-left:auto}.site-header nav{gap:.5rem}.brand-photo{width:36px;height:36px}.language-toggle{min-width:62px}.theme-toggle{margin-left:0}}
+
+/* Keep scanned poems and the closing illustration narrower than the prose. */
+.article-body .article-illustration{margin:2rem auto 2.5rem;text-align:center}
+.article-body .article-illustration--poem{max-width:420px}
+.article-body .article-illustration--signoff{max-width:240px;margin-top:3rem}
+.article-body .article-illustration--poster{max-width:380px}
+.article-body .article-illustration--exhibition{max-width:560px}
+.article-body .article-illustration--exhibition-wide{max-width:720px}
+.article-body .article-illustration--small-sticker{max-width:150px}
+.article-body .article-music-credit{color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-size:.84rem}
+.article-body .article-illustration img{display:block;width:100%;height:auto}
+.article-body .article-illustration figcaption{margin-top:.8rem;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-size:.82rem}
